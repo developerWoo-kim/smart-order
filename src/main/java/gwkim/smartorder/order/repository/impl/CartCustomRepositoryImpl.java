@@ -19,7 +19,6 @@ public class CartCustomRepositoryImpl implements CartCustomRepository {
         Cart findCart = queryFactory
                 .selectFrom(cart)
                 .where(cart.member.id.eq(memberId))
-                .fetchJoin()
                 .fetchOne();
         return Optional.ofNullable(findCart);
     }
