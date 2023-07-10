@@ -30,8 +30,8 @@ public class InitDb {
     @PostConstruct
     public void init() {
         initService.dbInit1();
-        initService.dbInit2();
-//        initService.dbInti_addCartItem1();
+//        initService.dbInit2();
+        initService.dbInti_addCartItem1();
 //        initService.dbInti_addCartItem2();
 //        initService.dbInti_addCartItem3();
     }
@@ -69,44 +69,51 @@ public class InitDb {
             optionDetailList1.add(getOptionDetail("중", 1500, 2));
             optionDetailList1.add(getOptionDetail("대", 2500, 3));
 
-            optionRepository.save(Option.createOption(saveItem1, "사이즈", "Y", 1,
+            optionRepository.save(Option.createOption(saveItem1, "사이즈1", "Y", 1,
                     1, 1, optionDetailList1.toArray(new OptionDetail[optionDetailList1.size()])));
 
             List<OptionDetail> optionDetailList2 = new ArrayList<>();
             optionDetailList2.add(getOptionDetail("조금", 0, 1));
             optionDetailList2.add(getOptionDetail("많이", 0, 2));
 
-            optionRepository.save(Option.createOption(saveItem1, "얼음", "N", 0,
+            optionRepository.save(Option.createOption(saveItem1, "얼음1", "N", 0,
                     0, 2, optionDetailList2.toArray(new OptionDetail[optionDetailList2.size()])));
 
 
             Item saveItem2 = itemRepository.save(createItem(saveStore, "카페라떼", 4500, "P", "1001", "Y"));
 
             List<OptionDetail> optionDetailList3 = new ArrayList<>();
-            optionDetailList1.add(getOptionDetail("소", 0, 1));
-            optionDetailList1.add(getOptionDetail("중", 1500, 2));
-            optionDetailList1.add(getOptionDetail("대", 2500, 3));
+            optionDetailList3.add(getOptionDetail("소", 0, 1));
+            optionDetailList3.add(getOptionDetail("중", 2500, 2));
+            optionDetailList3.add(getOptionDetail("대", 3500, 3));
 
             optionRepository.save(Option.createOption(saveItem2, "사이즈", "Y", 1,
-                    1, 1, optionDetailList1.toArray(new OptionDetail[optionDetailList1.size()])));
+                    1, 1, optionDetailList3.toArray(new OptionDetail[optionDetailList3.size()])));
 
             List<OptionDetail> optionDetailList4 = new ArrayList<>();
-            optionDetailList2.add(getOptionDetail("조금", 0, 1));
-            optionDetailList2.add(getOptionDetail("많이", 0, 2));
+            optionDetailList4.add(getOptionDetail("조금", 0, 1));
+            optionDetailList4.add(getOptionDetail("많이", 0, 2));
 
             optionRepository.save(Option.createOption(saveItem2, "얼음", "N", 0,
                     0, 2, optionDetailList4.toArray(new OptionDetail[optionDetailList4.size()])));
 
             List<OptionDetail> optionDetailList5 = new ArrayList<>();
-            optionDetailList2.add(getOptionDetail("2샷", 500, 1));
-            optionDetailList2.add(getOptionDetail("3샷", 1000, 2));
-            optionDetailList2.add(getOptionDetail("4샷", 1500, 3));
+            optionDetailList5.add(getOptionDetail("2샷", 500, 1));
+            optionDetailList5.add(getOptionDetail("3샷", 1000, 2));
+            optionDetailList5.add(getOptionDetail("4샷", 1500, 3));
 
             optionRepository.save(Option.createOption(saveItem2, "샷 추가", "N", 0,
-                    0, 3, optionDetailList2.toArray(new OptionDetail[optionDetailList5.size()])));
+                    0, 3, optionDetailList5.toArray(new OptionDetail[optionDetailList5.size()])));
 
 
             Item saveItem3 = itemRepository.save(createItem(saveStore, "망고 에이드", 5500, "R", "1001", "Y"));
+            List<OptionDetail> optionDetailList6 = new ArrayList<>();
+            optionDetailList6.add(getOptionDetail("소", 1000, 1));
+            optionDetailList6.add(getOptionDetail("중", 1500, 2));
+            optionDetailList6.add(getOptionDetail("대", 2000, 3));
+
+            optionRepository.save(Option.createOption(saveItem3, "사이즈", "N", 0,
+                    0, 1, optionDetailList6.toArray(new OptionDetail[optionDetailList6.size()])));
 
         }
 
@@ -143,27 +150,27 @@ public class InitDb {
             Item saveItem2 = itemRepository.save(createItem(saveStore, "카페라떼", 4500, "P", "1001", "Y"));
 
             List<OptionDetail> optionDetailList3 = new ArrayList<>();
-            optionDetailList1.add(getOptionDetail("소", 0, 1));
-            optionDetailList1.add(getOptionDetail("중", 1500, 2));
-            optionDetailList1.add(getOptionDetail("대", 2500, 3));
+            optionDetailList3.add(getOptionDetail("소", 0, 1));
+            optionDetailList3.add(getOptionDetail("중", 2500, 2));
+            optionDetailList3.add(getOptionDetail("대", 3500, 3));
 
             optionRepository.save(Option.createOption(saveItem2, "사이즈", "Y", 1,
-                    1, 1, optionDetailList1.toArray(new OptionDetail[optionDetailList1.size()])));
+                    1, 1, optionDetailList3.toArray(new OptionDetail[optionDetailList3.size()])));
 
             List<OptionDetail> optionDetailList4 = new ArrayList<>();
-            optionDetailList2.add(getOptionDetail("조금", 0, 1));
-            optionDetailList2.add(getOptionDetail("많이", 0, 2));
+            optionDetailList4.add(getOptionDetail("조금", 0, 1));
+            optionDetailList4.add(getOptionDetail("많이", 0, 2));
 
             optionRepository.save(Option.createOption(saveItem2, "얼음", "N", 0,
                     0, 2, optionDetailList4.toArray(new OptionDetail[optionDetailList4.size()])));
 
             List<OptionDetail> optionDetailList5 = new ArrayList<>();
-            optionDetailList2.add(getOptionDetail("2샷", 500, 1));
-            optionDetailList2.add(getOptionDetail("3샷", 1000, 2));
-            optionDetailList2.add(getOptionDetail("4샷", 1500, 3));
+            optionDetailList5.add(getOptionDetail("2샷", 500, 1));
+            optionDetailList5.add(getOptionDetail("3샷", 1000, 2));
+            optionDetailList5.add(getOptionDetail("4샷", 1500, 3));
 
             optionRepository.save(Option.createOption(saveItem2, "샷 추가", "N", 0,
-                    0, 3, optionDetailList2.toArray(new OptionDetail[optionDetailList5.size()])));
+                    0, 3, optionDetailList5.toArray(new OptionDetail[optionDetailList5.size()])));
 
 
             Item saveItem3 = itemRepository.save(createItem(saveStore, "망고 에이드", 5500, "R", "1001", "Y"));
@@ -179,7 +186,7 @@ public class InitDb {
             optionDetailList.add(optionDetailRepository.findById(7L).get());
             optionDetailList.add(optionDetailRepository.findById(11L).get());
             // 상품 생성
-            CartItem cartItem = CartItem.createCartItem(item, 1, optionDetailList.toArray(new OptionDetail[optionDetailList.size()]));
+            CartItem cartItem = CartItem.createCartItem(item, 2, optionDetailList.toArray(new OptionDetail[optionDetailList.size()]));
             // 장바구니 생성
             Cart cart = Cart.createCart(member, cartItem);
             Cart saveCart = cartRepository.save(cart);
