@@ -3,18 +3,21 @@ package gwkim.smartorder.order.service.impl;
 
 import gwkim.smartorder.member.domain.Member;
 import gwkim.smartorder.member.repository.MemberRepository;
+import gwkim.smartorder.option.domain.Option;
 import gwkim.smartorder.option.domain.OptionDetail;
 import gwkim.smartorder.order.domain.Cart;
 import gwkim.smartorder.order.domain.CartItem;
 import gwkim.smartorder.order.domain.Order;
 import gwkim.smartorder.order.domain.OrderItem;
 import gwkim.smartorder.order.domain.option.CartOption;
+import gwkim.smartorder.order.domain.option.OrderOption;
 import gwkim.smartorder.order.repository.CartRepository;
 import gwkim.smartorder.order.repository.OrderRepository;
 import gwkim.smartorder.order.response.OrderCommonResponse;
 import gwkim.smartorder.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,5 +55,26 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.save(order);
 
         return OrderCommonResponse.orderSuccess(order);
+    }
+    @Override
+    @Transactional
+    public List<Order> findAllOrder(Long memberId) {
+        List<Order> findOrders = orderRepository.findAllOrder(memberId);
+        for (Order order : findOrders) {
+            order.getMember().getName();
+            List<OrderItem> orderItems = order.getOrderItemList();
+            orderItems.stream()
+                    .forEach(io -> io.getItem().getItemName());
+            orderItems.stream()
+                    .forEach(io -> {
+                        List<OrderOption> orderOptions = io.getOrderOptions();
+                        orderOptions.stream()
+                                .forEach(orderOption -> {
+                                    orderOption.getOptionDetail().getName();
+                                    orderOption.getOptionDetail().getOption().getName();
+                                });
+                    });
+        }
+        return findOrders;
     }
 }
