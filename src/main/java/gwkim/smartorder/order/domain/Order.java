@@ -3,6 +3,7 @@ package gwkim.smartorder.order.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import gwkim.smartorder.member.domain.Member;
 import gwkim.smartorder.option.domain.OptionDetail;
+import gwkim.smartorder.order.domain.option.OrderOption;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -50,6 +51,23 @@ public class Order {
     public void addOrderItem(OrderItem orderItem) {
         orderItemList.add(orderItem);
         orderItem.setOrder(this);
+    }
+
+    /**
+     * 주문 상품 프록시를 초기화하는 편의 메서드
+     */
+    public void getOrderItemsWithOptions() {
+        List<OrderItem> orderItems = this.getOrderItemList();
+        orderItems.stream().forEach(io -> io.getItem().getItemName());
+        orderItems.stream()
+                .forEach(io -> {
+                    List<OrderOption> orderOptions = io.getOrderOptions();
+                    orderOptions.stream()
+                            .forEach(orderOption -> {
+                                orderOption.getOptionDetail().getName();
+                                orderOption.getOptionDetail().getOption().getName();
+                            });
+                });
     }
 
     //== 생성 메서드 ==//

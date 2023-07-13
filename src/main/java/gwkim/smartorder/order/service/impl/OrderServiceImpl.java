@@ -5,6 +5,7 @@ import gwkim.smartorder.member.domain.Member;
 import gwkim.smartorder.member.repository.MemberRepository;
 import gwkim.smartorder.option.domain.OptionDetail;
 import gwkim.smartorder.order.controller.dto.OrderDto;
+import gwkim.smartorder.order.controller.dto.OrderItemDto;
 import gwkim.smartorder.order.domain.Cart;
 import gwkim.smartorder.order.domain.CartItem;
 import gwkim.smartorder.order.domain.Order;
@@ -66,18 +67,18 @@ public class OrderServiceImpl implements OrderService {
         List<Order> findOrders = orderRepository.findAllOrder(memberId);
         for (Order order : findOrders) {
 //            order.getMember().getName();
-            List<OrderItem> orderItems = order.getOrderItemList();
-            orderItems.stream()
-                    .forEach(io -> io.getItem().getItemName());
-            orderItems.stream()
-                    .forEach(io -> {
-                        List<OrderOption> orderOptions = io.getOrderOptions();
-                        orderOptions.stream()
-                                .forEach(orderOption -> {
-                                    orderOption.getOptionDetail().getName();
-                                    orderOption.getOptionDetail().getOption().getName();
-                                });
-                    });
+            order.getOrderItemsWithOptions();
+//            List<OrderItem> orderItems = order.getOrderItemList();
+//            orderItems.stream().forEach(io -> io.getItem().getItemName());
+//            orderItems.stream()
+//                    .forEach(io -> {
+//                        List<OrderOption> orderOptions = io.getOrderOptions();
+//                        orderOptions.stream()
+//                                .forEach(orderOption -> {
+//                                    orderOption.getOptionDetail().getName();
+//                                    orderOption.getOptionDetail().getOption().getName();
+//                                });
+//                    });
         }
         return findOrders;
     }
@@ -93,18 +94,19 @@ public class OrderServiceImpl implements OrderService {
     public OrderCommonResponse<List<OrderDto>> findAllOrderV2(Long memberId) {
         List<Order> findOrders = orderRepository.findAllOrder(memberId);
         for (Order order : findOrders) {
-            List<OrderItem> orderItems = order.getOrderItemList();
-            orderItems.stream()
-                    .forEach(io -> io.getItem().getItemName());
-            orderItems.stream()
-                    .forEach(io -> {
-                        List<OrderOption> orderOptions = io.getOrderOptions();
-                        orderOptions.stream()
-                                .forEach(orderOption -> {
-                                    orderOption.getOptionDetail().getName();
-                                    orderOption.getOptionDetail().getOption().getName();
-                                });
-                    });
+            order.getOrderItemsWithOptions();
+//            List<OrderItem> orderItems = order.getOrderItemList();
+//            orderItems.stream().forEach(io -> io.getItem().getItemName());
+//
+//            orderItems.stream()
+//                    .forEach(io -> {
+//                        List<OrderOption> orderOptions = io.getOrderOptions();
+//                        orderOptions.stream()
+//                                .forEach(orderOption -> {
+//                                    orderOption.getOptionDetail().getName();
+//                                    orderOption.getOptionDetail().getOption().getName();
+//                                });
+//                    });
         }
         List<OrderDto> orderDto = findOrders.stream()
                 .map(m -> {
@@ -117,5 +119,30 @@ public class OrderServiceImpl implements OrderService {
                 })
                 .collect(Collectors.toList());
         return OrderCommonResponse.commonSuccess(orderDto);
+    }
+
+    /**
+     * 주문상세 내역 조회 V1
+     * @param memberId
+     * @return
+     */
+    @Override
+    @Transactional
+    public OrderCommonResponse<OrderDto> findOrderV1(Long memberId) {
+        Order order = orderRepository.findOrder(memberId);
+        order.getOrderItemsWithOptions();
+//        List<OrderItem> orderItems = order.getOrderItemList();
+//        orderItems.stream().forEach(oi -> oi.getItem().getItemName());
+//        orderItems.stream()
+//                .forEach(io -> {
+//                    List<OrderOption> orderOptions = io.getOrderOptions();
+//                    orderOptions.stream()
+//                            .forEach(orderOption -> {
+//                                orderOption.getOptionDetail().getName();
+//                                orderOption.getOptionDetail().getOption().getName();
+//                            });
+//                });
+
+        return null;
     }
 }
