@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 public class OrderDto {
     private Long orderId;
     private List<OrderItemDto> orderItems;
+    private int totalPrice;
     private String status;
     private LocalDateTime orderDate;
 
@@ -19,6 +20,9 @@ public class OrderDto {
         orderItems = order.getOrderItemList().stream()
                 .map(orderItem -> new OrderItemDto(orderItem))
                 .collect(Collectors.toList());
+        totalPrice = orderItems.stream()
+                .mapToInt(oi -> oi.getOrderPrice())
+                .sum();
         status = order.getStatus();
         orderDate = order.getOrderDate();
     }
