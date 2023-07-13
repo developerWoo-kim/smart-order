@@ -35,6 +35,7 @@ public class Order {
 
     private String status;
     private LocalDateTime orderDate;
+    private Long storeId;
 
     @Builder
     public Order(String status, LocalDateTime orderDate) {
@@ -59,7 +60,7 @@ public class Order {
      * @param orderItems
      * @return
      */
-    public static Order createOrder(Member member, OrderItem... orderItems) {
+    public static Order createOrder(Member member, Long storeId, OrderItem... orderItems) {
         Order order = new Order().builder()
                 .status("test")
                 .orderDate(LocalDateTime.now())
@@ -68,6 +69,7 @@ public class Order {
         for(OrderItem orderItem : orderItems) {
             order.addOrderItem(orderItem);
         }
+        order.storeId = storeId;
         return order;
     }
 }

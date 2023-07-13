@@ -137,7 +137,7 @@ public class InitDb {
             // 상품 생성
             CartItem cartItem = CartItem.createCartItem(item, 2, optionDetailList.toArray(new OptionDetail[optionDetailList.size()]));
             // 장바구니 생성
-            Cart cart = Cart.createCart(member, cartItem);
+            Cart cart = Cart.createCart(member, cartItem, item.getStore().getId());
             Cart saveCart = cartRepository.save(cart);
         }
 
@@ -239,7 +239,7 @@ public class InitDb {
             // 상품 생성
             CartItem cartItem = CartItem.createCartItem(item, 1, optionDetailList.toArray(new OptionDetail[optionDetailList.size()]));
             // 장바구니 생성
-            Cart cart = Cart.createCart(member, cartItem);
+            Cart cart = Cart.createCart(member, cartItem, item.getStore().getId());
             cartRepository.save(cart);
         }
 

@@ -27,13 +27,16 @@ public class Cart extends BaseEntity {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-    @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "member_id")
     private Member member;
 
     @JsonIgnore
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
     private List<CartItem> cartItemList = new ArrayList<>();
+
+    @Setter
+    private Long storeId;
 
     //== 연관 관계 메서드 ==//
 
@@ -63,10 +66,11 @@ public class Cart extends BaseEntity {
      * @param cartItem
      * @return
      */
-    public static Cart createCart(Member member, CartItem cartItem) {
+    public static Cart createCart(Member member, CartItem cartItem, Long storeId) {
         Cart cart = new Cart();
         cart.addMember(member);
         cart.addCartItem(cartItem);
+        cart.setStoreId(storeId);
         return cart;
     }
 }

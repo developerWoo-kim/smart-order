@@ -1,9 +1,11 @@
 package gwkim.smartorder.order.controller.dto;
 
 import gwkim.smartorder.order.domain.Order;
+import gwkim.smartorder.store.controller.dto.StoreDto;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,7 +15,8 @@ public class OrderDto {
     private List<OrderItemDto> orderItems;
     private int totalPrice;
     private String status;
-    private LocalDateTime orderDate;
+    private String orderDate;
+    private StoreDto store;
 
     public OrderDto(Order order) {
         orderId = order.getId();
@@ -24,6 +27,6 @@ public class OrderDto {
                 .mapToInt(oi -> oi.getOrderPrice())
                 .sum();
         status = order.getStatus();
-        orderDate = order.getOrderDate();
+        orderDate = order.getOrderDate().format(DateTimeFormatter.ofPattern("YYYY.MM.dd (E)"));
     }
 }

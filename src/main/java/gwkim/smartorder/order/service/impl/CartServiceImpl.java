@@ -46,14 +46,13 @@ public class CartServiceImpl implements CartService {
         if(findCart.isPresent()) {
             cart = findCart.get();
             // 장바구니가 있는 경우 매장을 비교한다.
-            Store store = cart.getCartItemList().stream()
-                    .map(CartItem::getItem)
-                    .map(Item::getStore)
-                    .findFirst()
-                    .orElseThrow();
-            System.out.println(store.getId() + "<<<");
+//            Store store = cart.getCartItemList().stream()
+//                    .map(CartItem::getItem)
+//                    .map(Item::getStore)
+//                    .findFirst()
+//                    .orElseThrow();
             // 동일한 매장인지 비교
-            if (store.getId().equals(selectItem.getStore().getId())) {
+            if (cart.getStoreId().equals(selectItem.getStore().getId())) {
                 // 비즈니스 로직 수행
                 // 동일한 제품이 있는지?
                 List<CartItem> dupleItemList = cart.getCartItemList().stream()
@@ -106,7 +105,7 @@ public class CartServiceImpl implements CartService {
                 return CartCommonResponse.storeChangeConfirm(cart);
             }
         } else {
-            cartRepository.save(Cart.createCart(member, cartItem));
+            cartRepository.save(Cart.createCart(member, cartItem, selectItem.getStore().getId()));
         }
 
         return CartCommonResponse.addSuccess(cart);
