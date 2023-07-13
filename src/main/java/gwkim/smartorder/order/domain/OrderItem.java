@@ -1,6 +1,8 @@
 package gwkim.smartorder.order.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import gwkim.smartorder.item.domain.Item;
 import gwkim.smartorder.option.domain.OptionDetail;
 import gwkim.smartorder.order.domain.option.CartOption;
@@ -27,6 +29,7 @@ public class OrderItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "order_id")
     private Order order;
@@ -35,7 +38,6 @@ public class OrderItem {
     @JoinColumn(name = "item_id")
     private Item item;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "orderItem", cascade = CascadeType.ALL)
     private List<OrderOption> orderOptions = new ArrayList<>();
 

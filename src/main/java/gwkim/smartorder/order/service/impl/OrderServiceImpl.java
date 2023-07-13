@@ -3,8 +3,8 @@ package gwkim.smartorder.order.service.impl;
 
 import gwkim.smartorder.member.domain.Member;
 import gwkim.smartorder.member.repository.MemberRepository;
-import gwkim.smartorder.option.domain.Option;
 import gwkim.smartorder.option.domain.OptionDetail;
+import gwkim.smartorder.order.controller.dto.OrderDto;
 import gwkim.smartorder.order.domain.Cart;
 import gwkim.smartorder.order.domain.CartItem;
 import gwkim.smartorder.order.domain.Order;
@@ -61,7 +61,7 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> findAllOrder(Long memberId) {
         List<Order> findOrders = orderRepository.findAllOrder(memberId);
         for (Order order : findOrders) {
-            order.getMember().getName();
+//            order.getMember().getName();
             List<OrderItem> orderItems = order.getOrderItemList();
             orderItems.stream()
                     .forEach(io -> io.getItem().getItemName());
@@ -76,5 +76,13 @@ public class OrderServiceImpl implements OrderService {
                     });
         }
         return findOrders;
+    }
+
+    @Override
+    public OrderCommonResponse<List<OrderDto>> findAllOrderV2(Long memberId) {
+        List<OrderDto> findOrder = orderRepository.findAllOrder(memberId).stream()
+                .map(m -> new OrderDto(m))
+                .collect(Collectors.toList());
+        return OrderCommonResponse.commonSuccess(findOrder);
     }
 }

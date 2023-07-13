@@ -1,6 +1,7 @@
 package gwkim.smartorder.order.domain.option;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import gwkim.smartorder.option.domain.OptionDetail;
 import gwkim.smartorder.order.domain.CartItem;
 import gwkim.smartorder.order.domain.OrderItem;
@@ -22,6 +23,7 @@ public class OrderOption {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "order_item_id")
     private OrderItem orderItem;
